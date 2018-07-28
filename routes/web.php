@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '/'], function () {
+Route::get('/','AdminController@index')->name('home');
+Route::get('/light','AdminController@light')->name('light');
+Route::get('/dark','AdminController@dark')->name('dark');
 });
+
