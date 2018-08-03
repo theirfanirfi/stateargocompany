@@ -14,7 +14,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="Responsive Admin Template" />
     <meta name="author" content="SmartUniversity" />
-    <title>TalentSQL</title>
+    <title>State Argo Company</title>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
 	<!-- icons -->
@@ -66,23 +66,14 @@
                 <!-- logo start -->
                 <div class="page-logo">
                     <a href="index.html">
-                  <!--  <span class="logo-icon material-icons fa-rotate-45">school</span> -->
-                    <span class="logo-default" >CREW ASIA</span> </a>
+                <span class="logo-icon material-icons fa-rotate-45">school</span>
+                    <span class="logo-default" >State Argo Company</span> </a>
                 </div>
                 <!-- logo end -->
 				<ul class="nav navbar-nav navbar-left in">
 					<li><a href="#" class="menu-toggler sidebar-toggler"><i class="icon-menu"></i></a></li>
 				</ul>
-               <!--  <form class="search-form-opened" action="#" method="GET">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search..." name="query">
-                        <span class="input-group-btn">
-                          <a href="javascript:;" class="btn submit">
-                             <i class="icon-magnifier"></i>
-                           </a>
-                        </span>
-                    </div>
-                </form> -->
+
                 <!-- start mobile menu -->
                 <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
                     <span></span>
@@ -95,7 +86,7 @@
                         <li><a href="javascript:;" class="fullscreen-btn"><i class="fa fa-arrows-alt"></i></a></li>
                         @if(Session('Access') == 1)
                     	<!-- start language menu -->
-                 <li class="dropdown language-switch">
+             <!--    <li class="dropdown language-switch">
                             <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <img src="" class="position-left" alt=""> Export <span class="fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -123,7 +114,7 @@
                                         <a href="{{route('exportHired')}}" class="deutsch">Export Hired</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         <!-- end language menu -->
 
                         @endif
@@ -198,18 +189,18 @@
  						<li class="dropdown dropdown-user">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <img alt="" class="img-circle " src="../assets/img/dp.jpg" />
-                                <span class="username username-hide-on-mobile"> user->name </span>
+                                <span class="username username-hide-on-mobile"> {{Auth::user()->name}} </span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="{{route('home')}}">
-                                        <i class="icon-settings"></i> Settings
+                                    <a href="{{route('profile')}}">
+                                        <i class="icon-settings"></i> My Profile
                                     </a>
                                 </li>
                                 <li class="divider"> </li>
                                 <li>
-                                <a href="{{route('home')}}">
+                                <a href="{{route('logout')}}">
                                         <i class="icon-logout"></i> Log Out </a>
                                 </li>
                             </ul>

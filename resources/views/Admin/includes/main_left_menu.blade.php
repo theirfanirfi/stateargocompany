@@ -16,7 +16,7 @@
                                    <img src="{{ URL::asset('assets/img/dp.jpg') }}" class="img-circle user-img-circle" alt="User Image" />
                                </div>
                                <div class="pull-left info">
-                               <p>Auth::user()->name</p>
+                               <p>{{Auth::user()->name}}</p>
                                    <a href="#"><i class="fa fa-circle user-online"></i><span class="txtOnline"> Online</span></a>
                                </div>
                            </div>
@@ -56,26 +56,12 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link nav-toggle">
+                        <a href="{{route('groups')}}" class="nav-link">
                                     <i class="material-icons">people</i>
                                     <span class="title">Groups</span>
-                                    <span class="arrow"></span>
+                                  
                                  
                                 </a>
-
-                                <ul class="sub-menu">
-                                        <li class="nav-item">
-
-                                        <a href="{{route('home')}}" class="nav-link "> <span class="title">
-                                            
-                                            Add Group</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                        <a href="{{route('home')}}" class="nav-link "> <span class="title">Groups</span>
-                                            </a>
-                                        </li>
-                                </ul>
                             </li>
 
                             <li class="nav-item">
@@ -89,13 +75,13 @@
                                     <ul class="sub-menu">
                                             <li class="nav-item">
 
-                                            <a href="{{route('home')}}" class="nav-link "> <span class="title">
+                                            <a href="{{route('addproduct')}}" class="nav-link "> <span class="title">
                                                 
                                                 Add Product</span>
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                            <a href="{{route('home')}}" class="nav-link "> <span class="title">Products</span>
+                                            <a href="{{route('products')}}" class="nav-link "> <span class="title">Products</span>
                                                 </a>
                                             </li>
                                     </ul>
