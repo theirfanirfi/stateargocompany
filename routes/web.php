@@ -51,6 +51,11 @@ Route::get('/deleteProductPrice/{id}','AdminController@deleteProductPrice')->nam
 //users
 
 Route::get('/addUser','AdminController@addUser')->name('addUser');
+Route::post('/userAdd','AdminController@userAdd')->name('userAdd');
+Route::post('/updateUser','AdminController@updateUser')->name('updateUser');
+Route::get('/users','AdminController@users')->name('users');
+Route::get('/deleteUser/{id}','AdminController@deleteUser')->name('deleteUser');
+Route::get('/editUser/{id}','AdminController@editUser')->name('editUser');
 
 });
 

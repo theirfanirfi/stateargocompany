@@ -49,15 +49,15 @@
                                         $cu = $p->product_price;
                                         if($cu > $pre)
                                         {
-                                            echo "up comp";
+                                            echo "<i style='font-weight:bolder;font-size:30px;color:green;' class='fa fa-long-arrow-up'></i>";
 
                                         }
                                         else {
-                                            echo "down comp";
+                                                echo "<i style='font-weight:bolder;font-size:30px;color:red;' class='fa fa-long-arrow-down'></i>";
                                         }
                                     }   
                                     else {
-                                        echo "up";
+                                        echo "<i style='font-weight:bolder;font-size:30px;color:green;' class='fa fa-long-arrow-up'></i>";
                                     } 
                                     ?>
                                 </td>

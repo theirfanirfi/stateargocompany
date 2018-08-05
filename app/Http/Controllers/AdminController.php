@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Models\GroupsModel;
 use App\Http\Models\Products;
 use App\Http\Models\Prices;
+use App\User;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 class AdminController extends Controller
@@ -324,5 +326,140 @@ public function addUser()
 {
     $groups = GroupsModel::all();
     return view('Admin.adduser',['page' => 'Add User', 'groups' => $groups]);
+}
+
+public function userAdd(Request $req)
+{
+    $fullname = $req->input('fullname');
+    $email = $req->input('email');
+    $password = $req->input('password');
+    $gid = $req->input('group_id');
+    $address = $req->input('address');
+    $phone = $req->input('phone');
+    $evaluation = $req->input('evaluation');
+    $note = $req->input('note');
+
+    if($fullname == "" || $email == "" || $password == "" || $gid == "" || $address == "" || $phone == "" || $evaluation == "" || $note == "")
+    {
+    return redirect()->back()->with('error','All Fields are Required.');
+
+    }
+    else
+    {
+        $uf = User::whereEmail($email);
+        if($uf->count() > 0)
+        {
+    return redirect()->back()->with('error','Email is already taken. Please use another one.');
+
+        }
+        else {
+        $user = new User();
+        $user->isPartner = 1;
+        $user->group_id = $gid;
+        $user->name = $fullname;
+        $user->address = $address;
+        $user->phone = $phone;
+        $user->evaluation = $evaluation;
+        $user->note = $note;
+        $user->password = Hash::make($password);
+        $user->email = $email;
+        if($user->save())
+        {
+            return redirect()->back()->with('success','User/Partner Added.');
+
+        }
+        else
+        {
+            return redirect()->back()->with('error','Error occurred in Adding the user/partner. Please try again.');
+        }
+    }
+
+    }
+}
+
+public function users()
+{
+    $users = User::where(['isPartner' => 1])->get();
+    return view('Admin.users',['page' => 'Users/Partners', 'users' => $users]); 
+}
+
+public function deleteUser($id)
+{
+    $user = User::find($id);
+    if($user->delete())
+    {
+    return redirect()->back()->with('success','User Deleted.');
+
+    }
+    else
+    {
+    return redirect()->back()->with('error','Error occurred in Deleting the User. Please try again.');
+
+    }
+}
+
+public function editUser($id)
+{
+    $user = User::find($id);
+    $groups = GroupsModel::all();
+    return view('Admin.editUser',['page' => 'Edit User: '.$user->name, 'user' => $user,'groups' => $groups]);
+}
+
+
+public function updateUser(Request $req)
+{
+    $fullname = $req->input('fullname');
+    $email = $req->input('email');
+    $password = $req->input('password');
+    $gid = $req->input('group_id');
+    $address = $req->input('address');
+    $phone = $req->input('phone');
+    $evaluation = $req->input('evaluation');
+    $note = $req->input('note');
+    $id = $req->input('id');
+
+    if($fullname == "" || $email == "" || $gid == "" || $address == "" || $phone == "" || $evaluation == "" || $note == "")
+    {
+    return redirect()->back()->with('error','All Fields are Required.');
+
+    }
+    else
+    {
+        $user= User::find($id);
+        if($user->email != $email ){
+        $uf = User::whereEmail($email);
+        if($uf->count() > 0)
+        {
+    return redirect()->back()->with('error','Email is already taken. Please use another one.');
+
+        }
+    }
+        
+        $user->group_id = $gid;
+        $user->name = $fullname;
+        $user->address = $address;
+        $user->phone = $phone;
+        $user->evaluation = $evaluation;
+        $user->note = $note;
+
+        if(!empty($password))
+        {
+        $user->password = Hash::make($password);
+        }
+
+
+        $user->email = $email;
+        if($user->save())
+        {
+            return redirect()->back()->with('success','User/Partner Updated.');
+
+        }
+        else
+        {
+            return redirect()->back()->with('error','Error occurred in Updating the user/partner. Please try again.');
+        }
+
+
+    }
 }
 }

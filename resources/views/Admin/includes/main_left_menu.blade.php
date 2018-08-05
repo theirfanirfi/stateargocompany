@@ -24,7 +24,7 @@
 
 
                        <li class="nav-item start ">
-                       <a href="{{route('home')}}" class="nav-link">
+                       <a href="{{route('profile')}}" class="nav-link">
                                <i class="material-icons">dashboard</i>
                                <span class="title">My Profile</span>
                             
@@ -125,13 +125,13 @@
                                                             <ul class="sub-menu">
                                                                     <li class="nav-item">
     
-                                                                    <a href="{{route('home')}}" class="nav-link "> <span class="title">
+                                                                    <a href="{{route('users')}}" class="nav-link "> <span class="title">
                                                                         
                                                                         Users/Partners</span>
                                                                         </a>
                                                                     </li>
                                                                     <li class="nav-item">
-                                                                    <a href="{{route('home')}}" class="nav-link "> <span class="title">Add User/Partner</span>
+                                                                    <a href="{{route('addUser')}}" class="nav-link "> <span class="title">Add User/Partner</span>
                                                                         </a>
                                                                     </li>
                                                             </ul>
