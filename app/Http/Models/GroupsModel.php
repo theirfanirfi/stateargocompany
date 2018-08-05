@@ -14,6 +14,6 @@ class GroupsModel extends Model
 
     public function getGroupProducts()
     {
-        return Products::whereGroup_id($this->group_id);
+        return Products::whereGroup_id($this->g_id);
     }
 }

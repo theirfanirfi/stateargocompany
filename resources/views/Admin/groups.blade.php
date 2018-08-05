@@ -44,6 +44,7 @@
                             <tr>
                                     <th>Group Name</th>
                                     <th>Products</th>
+                                    <th>View Products</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                             </tr>
@@ -54,10 +55,11 @@
 
                                 @foreach($groups as $g)
                                 <tr>
-                                <td>{{$g->group_name}}</td>
-                                    <td>0</td>
-                                    <td><a href="" class="btn btn-primary">Edit</a></td>
-                                    <td><a href="" class="btn btn-danger">Delete</a></td>
+                                <td><a href="{{route('groupProducts',['id' => $g->g_id])}}">{{$g->group_name}}</a></td>
+                                <td>{{$g->getGroupProducts()->count()}}</td>
+                                <td><a href="{{route('groupProducts',['id' => $g->g_id])}}">View Products</a></td>
+                                <td><a href="{{route('editGroup',['id'=>$g->g_id])}}" class="btn btn-primary">Edit</a></td>
+                                <td><a href="{{route('deleteGroup',['id' => $g->g_id])}}" class="btn btn-danger">Delete</a></td>
                                     
                                 </tr>
                     @endforeach

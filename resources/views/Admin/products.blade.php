@@ -2,6 +2,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+
+            
             <div class="card card-topline-aqua">
                 <div class="card-head">
                     <header></header>
@@ -31,7 +33,7 @@
                                 <tr>
                                 <td>{{$p->product_code}}</td>
 
-                                <td><a href="">{{$p->product_name}}</a></td>
+                                <td><a href="{{route('product',['id' => $p->product_id])}}">{{$p->product_name}}</a></td>
                                 <td>{{$p->product_price}}</td>
                                 <td>{{$p->product_change_time}}</td>
                                 <td>{{$p->product_note}}</td>
@@ -59,8 +61,8 @@
                                     } 
                                     ?>
                                 </td>
-                                    <td><a href="" class="btn btn-primary">Edit</a></td>
-                            <td><a href="{{route('deleteProduct',['id' => $p->proudct_id])}}" class="btn btn-danger">Delete</a></td>
+                                    <td><a href="{{route('product',['id' => $p->product_id])}}" class="btn btn-primary">Edit</a></td>
+                            <td><a href="{{route('deleteProduct',['id' => $p->product_id])}}" class="btn btn-danger">Delete</a></td>
                                     
                                 </tr>
                     @endforeach

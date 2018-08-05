@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-
+use Auth;
 class AdminWare
 {
     /**
@@ -15,6 +15,12 @@ class AdminWare
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+        if(Auth::check() && Auth::user()->isPartner == 0){
+                    return $next($request);
+        }
+        else 
+        {
+            return redirect('/login');
+        }
     }
 }

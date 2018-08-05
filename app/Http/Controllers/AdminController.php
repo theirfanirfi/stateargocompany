@@ -177,4 +177,152 @@ public function GroupProducts($id)
     $products = Products::whereGroup_id($id)->get();
     return view('Admin.products',['page' => 'Products', 'products' => $products]);
 }
+
+public function deleteProduct($id)
+{
+    $p = Products::find($id);
+    $price  = Prices::whereProduct_id($id);
+    if($p->delete())
+    {
+        if($price->count() > 0)
+        {
+            $price->get()->delete();
+        }
+
+
+        return redirect()->back()->with('success','Product Deleted.');
+
+    }
+    else
+    {
+    return redirect()->back()->with('error','Error occurred in deleting the Product. Please try again.');
+
+    }
+}
+
+public function product($id)
+{
+    $product = Products::find($id);
+    $groups = GroupsModel::all();
+    $prices = Prices::whereProduct_id($id)->get();
+    return view('Admin.product',['page' => $product->product_name,'product' => $product,'groups' => $groups,'prices' => $prices]);
+}
+
+
+public function updateProduct(Request $req)
+{
+    $product_code = $req->input('product_code');
+    $product_name = $req->input('product_name');
+    $product_price = $req->input('product_price');
+    $gid = $req->input('group_id');
+    $pid = $req->input('product_id');
+    $product_note = $req->input('product_note');
+
+    if($product_code == "" || $product_name == "" || $product_price == "" || $gid == "" || $product_note == "" || $pid == "")
+    {
+    return redirect()->back()->with('error','All Fields are required');
+        
+    }
+    else
+    {
+        $product = Products::find($pid);
+        $product->product_code = $product_code;
+        $product->product_name = $product_name;
+        $product->product_price = $product_price;
+        $product->product_note = $product_note;
+        $product->group_id = $gid;
+        if($product->save())
+        {
+        
+            $pricee = Prices::whereProduct_id($pid)->orderBy('pp_id','Desc')->first();
+            if($product_price > $pricee->price || $product_price < $pricee->price){
+                $price = new Prices();
+            $price->price = $product_price;
+            $price->day = date('d');
+            $price->month = date('m');
+            $price->year = date('Y');
+        $price->product_id = $product->product_id;
+        $price->save();
+            }
+
+
+
+    return redirect()->back()->with('success','Product Updated.');
+
+        }
+        else
+        {
+    return redirect()->back()->with('error','Error occurred in Updating the Product. Please try again.');
+
+        }
+    }
+
+}
+
+public function deleteProductPrice($id)
+{
+    $price = Prices::find($id);
+    if($price->delete())
+    {
+    return redirect()->back()->with('success','Price Deleted.');
+
+    }
+    else
+    {
+    return redirect()->back()->with('error','Error occurred in Deleting the Price. Please try again.');
+
+    }
+}
+
+public function editGroup($id)
+{
+    $group = GroupsModel::find($id);
+    return view('Admin.editGroup',['page' => 'Edit Group: '.$group->group_name,'group' => $group]);
+}
+
+public function deleteGroup($id)
+{
+    $group = GroupsModel::find($id);
+    if($group->delete())
+    {
+    return redirect()->back()->with('success','Group Deleted.');
+
+    }
+    else
+    {
+    return redirect()->back()->with('error','Error occurred in Deleting the Group. Please try again.');
+
+    }
+}
+
+public function groupEdit(Request $req)
+{
+    $gname = $req->input('group_name');
+    $gid = $req->input('group_id');
+    if($gname == "" || $gid == "")
+    {
+    return redirect()->back()->with('error','Group name cannot be empty.');
+    }
+    else
+    {
+        $g = GroupsModel::find($gid);
+        $g->group_name = $gname;
+        if($g->save())
+        {
+            return redirect()->back()->with('success','Group Updated.');
+
+        }
+        else
+        {
+    return redirect()->back()->with('error','Error occurred in Updating the group. Please try again.');
+
+        }
+    }
+}
+
+public function addUser()
+{
+    $groups = GroupsModel::all();
+    return view('Admin.adduser',['page' => 'Add User', 'groups' => $groups]);
+}
 }

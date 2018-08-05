@@ -34,9 +34,23 @@ Route::post('/addgroup','AdminController@addgroup')->name('addgroup');
 
 Route::get('addproduct','AdminController@addproduct')->name('addproduct');
 Route::post('processProduct','AdminController@processProduct')->name('processProduct');
+Route::post('updateProduct','AdminController@updateProduct')->name('updateProduct');
 
 Route::get('products','AdminController@products')->name('products');
+Route::get('groupProducts/{id}','AdminController@GroupProducts')->name('groupProducts');
+Route::get('editGroup/{id}','AdminController@editGroup')->name('editGroup');
+Route::post('/groupEdit','AdminController@groupEdit')->name('groupEdit');
+Route::get('/deleteGroup/{id}','AdminController@deleteGroup')->name('deleteGroup');
 Route::get('/deleteProduct/{id}','AdminController@deleteProduct')->name('deleteProduct');
+Route::get('product/{id}','AdminController@product')->name('product');
+
+//price
+
+Route::get('/deleteProductPrice/{id}','AdminController@deleteProductPrice')->name('deleteProductPrice');
+
+//users
+
+Route::get('/addUser','AdminController@addUser')->name('addUser');
 
 });
 
