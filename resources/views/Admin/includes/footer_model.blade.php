@@ -80,6 +80,6 @@ $.toast({
         }
         setInterval(checkNotification,3000);
 
-        </script>
+    </script>
 </body>
 </html>

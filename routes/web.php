@@ -57,5 +57,17 @@ Route::get('/users','AdminController@users')->name('users');
 Route::get('/deleteUser/{id}','AdminController@deleteUser')->name('deleteUser');
 Route::get('/editUser/{id}','AdminController@editUser')->name('editUser');
 
+//inbox 
+
+Route::get('/inbox','AdminController@inbox')->name('inbox');
+Route::get('/groupInbox/{id}','AdminController@groupInbox')->name('groupInbox');
+
+//send message
+
+Route::get('/sendmessage','AdminController@sendmessage')->name('sendmessage');
+Route::get('/conversation/{id}','AdminController@conversation')->name('conversation');
+Route::post('/postMessage','AdminController@postMessage')->name('postMessage');
+
+
 });
 

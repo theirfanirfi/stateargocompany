@@ -33,7 +33,7 @@
 
 
                        <li class="nav-item">
-                        <a href="#" class="nav-link nav-toggle">
+                       <a href="" class="nav-link nav-toggle">
                                 <i class="material-icons">people</i>
                                 <span class="title">Messages</span>
                                 <span class="arrow"></span>
@@ -43,13 +43,13 @@
                             <ul class="sub-menu">
                                     <li class="nav-item">
 
-                                    <a href="{{route('home')}}" class="nav-link "> <span class="title">
+                                    <a href="{{route('inbox')}}" class="nav-link "> <span class="title">
                                         
                                         Inbox</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                    <a href="{{route('home')}}" class="nav-link "> <span class="title">Send Message</span>
+                                    <a href="{{route('sendmessage')}}" class="nav-link "> <span class="title">Send Message</span>
                                         </a>
                                     </li>
                             </ul>

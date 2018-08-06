@@ -35,6 +35,7 @@
     <link href="{{ URL::asset('assets/css/theme/dark/theme_style.css') }}" rel="stylesheet" id="rt_style_components" type="text/css" />
     <link href="{{ URL::asset('assets/css/theme/dark/style.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/css/plugins.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ URL::asset('assets/css/pages/inbox.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/css/responsive.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ URL::asset('assets/css/theme/dark/theme-color.css') }}" rel="stylesheet" type="text/css" />
     @else 

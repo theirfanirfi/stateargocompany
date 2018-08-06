@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Models\GroupsModel;
 use App\Http\Models\Products;
 use App\Http\Models\Prices;
+use App\Http\Models\Conversation;
+use App\Http\Models\Messages;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
@@ -461,5 +463,101 @@ public function updateUser(Request $req)
 
 
     }
+}
+
+public function inbox()
+{
+    $conversations = Conversation::all();
+    $groups = GroupsModel::all();
+    $inboxCount = Messages::where(['reciever_id' => Auth::user()->id,'alert_status' => 0])->count();
+    return view('Admin.inbox',['page' => 'Inbox', 'conversations' => $conversations, 'groups' => $groups,'inboxCount' => $inboxCount]);
+
+
+
+}
+
+public function groupInbox($id)
+{
+    $conversations = Conversation::whereGroup_id($id)->get();
+    $groups = GroupsModel::all();
+    $group = GroupsModel::find($id);
+    $inboxCount = Messages::where(['reciever_id' => Auth::user()->id,'alert_status' => 0])->count();
+    return view('Admin.inbox',['page' => $group->group_name.' Inbox', 'conversations' => $conversations, 'groups' => $groups,'inboxCount' => $inboxCount]);
+}
+
+public function sendmessage()
+{
+    $groups = GroupsModel::all();
+    $users = User::where(['isPartner' => 1])->get();
+    $inboxCount = Messages::where(['reciever_id' => Auth::user()->id,'alert_status' => 0])->count();
+    return view('Admin.compose',['page' => 'Send Message','users' => $users,'groups' => $groups,'inboxCount' => $inboxCount]);
+}
+
+public function postMessage(Request $req)
+{
+    $user_id = $req->input('user_id'); //reciever_id
+    $msg = $req->input('message');
+    if($user_id != "" || $msg != "")
+    {
+
+    $sender = Auth::user();
+    $reciever = User::find($user_id);
+    $group_id = $reciever->group_id;
+    $cid = "";
+    $conv = Conversation::where(['reciever_id' => $user_id]);
+    if($conv->count() == 0)
+    {
+        $con = new Conversation();
+        $con->sender_id = $sender->id;
+        $con->reciever_id = $reciever->id;
+        $con->group_id = $group_id;
+        if($con->save())
+        {
+            $cid = $con->cid;
+        }
+    }
+    else
+    {
+        $cid = $conv->first()->cid;
+    }
+
+
+
+
+            $message = new Messages();
+            $message->sender_id = $sender->id;
+            $message->reciever_id = $reciever->id;
+            $message->message = $msg;
+            $message->group_id = $group_id;
+            $message->cid = $cid;
+            if($message->save())
+            {
+            return redirect()->back()->with('success','Message Sent to '.$reciever->name);
+
+            }
+            else
+            {
+            return redirect()->back()->with('error','Error occurred in sending the Message. Please try again.');
+
+            }
+        }
+        else
+        {
+            return redirect()->back()->with('error','All Fields are Required.');
+
+        }
+
+}
+
+public function conversation($id)
+{
+    $conversation = Conversation::find($id);
+    $msgs = Messages::whereCid($id)->get();
+    $reciever = User::find($conversation->reciever_id);
+    $inboxCount = Messages::where(['reciever_id' => Auth::user()->id,'alert_status' => 0])->count();
+    $groups = GroupsModel::all();
+    $user = Auth::user();
+    return view('Admin.conversation',['page' => 'Conversation with: '.$reciever->name,'msgs' => $msgs,'reciever' => $reciever,
+    'groups' => $groups,'conversation' => $conversation,'inboxCount' => $inboxCount,'user' => $user]);
 }
 }
