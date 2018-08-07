@@ -11,6 +11,21 @@
 |
 */
 
+
+// use App\User;
+// use Illuminate\Support\Facades\Hash;
+
+// Route::get('/client/register',function(){
+// $u = new User();
+// $u->name = "Irfan Ullah";
+// $u->email = "ii@ii.com";
+// $u->password = Hash::make("irfan001");
+// $u->save();
+// });
+
+
+
+
 //login 
 Route::get('/login','LoginController@login')->name('login');
 Route::post('/loginPost','LoginController@loginPost')->name('loginPost');
