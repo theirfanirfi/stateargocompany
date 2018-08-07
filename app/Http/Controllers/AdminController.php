@@ -238,7 +238,9 @@ public function updateProduct(Request $req)
         if($product->save())
         {
         
-            $pricee = Prices::whereProduct_id($pid)->orderBy('pp_id','Desc')->first();
+            $pricee = Prices::whereProduct_id($pid)->orderBy('pp_id','Desc');
+            if($pricee->count() > 0){
+                $pricee = $pricee->first();
             if($product_price > $pricee->price || $product_price < $pricee->price){
                 $price = new Prices();
             $price->price = $product_price;
@@ -248,6 +250,9 @@ public function updateProduct(Request $req)
         $price->product_id = $product->product_id;
         $price->save();
             }
+        }
+
+
 
 
 

@@ -8,6 +8,6 @@ class Prices extends Model
 {
     //
 
-    protected $table  = "product_price";
+    protected $table  = "prices";
     protected $primaryKey  = "pp_id";
 }

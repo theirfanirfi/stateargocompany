@@ -47,7 +47,7 @@
                                     {
                                         $pre = $in->first();
                                         $cu = $p->product_price;
-                                        if($cu > $pre)
+                                        if($cu > $pre->price)
                                         {
                                             echo "<i style='font-weight:bolder;font-size:30px;color:green;' class='fa fa-long-arrow-up'></i>";
 

@@ -106,7 +106,7 @@
                                                 <tbody>
                                            
                                                
-                        
+                                                    @if(!empty($prices))
                                                         @foreach($prices as $p)
                                                         <tr>
                                                         <td>{{$p->price}}</td>
@@ -116,6 +116,7 @@
                                                             
                                                         </tr>
                                             @endforeach
+                                            @endif
                         
                         
                                                 </tbody>
